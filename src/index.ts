@@ -9,7 +9,7 @@ const videos = [{id: 1, title: 'video1'}, {id: 2, title: 'video2'}]
 const parserMiddle = bodyParser();
 app.use(parserMiddle)
 
-app.get('/api/videos', (req: Request, res: Response) => {
+app.get('/videos', (req: Request, res: Response) => {
     if (req.query.title) {
         let searchString = req.query.title.toString();
         res.status(200).send(videos.filter(p => p.title.indexOf(searchString) > -1))
@@ -17,7 +17,7 @@ app.get('/api/videos', (req: Request, res: Response) => {
         res.send(videos)
     }
 })
-app.get('/api/videos/:id', (req: Request, res: Response) => {
+app.get('/videos/:id', (req: Request, res: Response) => {
     let video = videos.find(p => p.id === +req.params.id)
     if (video) {
         res.status(200).send(video)
@@ -25,7 +25,7 @@ app.get('/api/videos/:id', (req: Request, res: Response) => {
         res.send(404)
     }
 })
-app.delete('/api/videos/:id', (req: Request, res: Response) => {
+app.delete('/videos/:id', (req: Request, res: Response) => {
     for (let i = 0; i < videos.length; i++) {
         if (videos[i].id === +req.params.id) {
             videos.splice(i, 1);
@@ -35,7 +35,7 @@ app.delete('/api/videos/:id', (req: Request, res: Response) => {
     }
     res.send(404)
 })
-app.put('/api/videos/:id', (req: Request, res: Response) => {
+app.put('/videos/:id', (req: Request, res: Response) => {
     let video = videos.find(p => p.id === +req.params.id)
     if (video) {
         video.title = req.body.title
@@ -44,7 +44,7 @@ app.put('/api/videos/:id', (req: Request, res: Response) => {
         res.send(404)
     }
 })
-app.post('/api/videos', (req: Request, res: Response) => {
+app.post('/videos', (req: Request, res: Response) => {
     const newVideo = {
         id: +(new Date()),
         title: req.body.title
