@@ -67,7 +67,7 @@ app.post('/videos', (req: Request, res: Response) => {
         availableResolutions: [req.body.availableResolutions],
 
     }
-    if (typeof req.body.title !== "string" || req.body.title.length > 40 || req.body.title === "") {
+    if (typeof req.body.title === "string" && req.body.title.length <= 40) {
         videos.push(newVideo);
         res.status(201).send(newVideo)
     } else {
