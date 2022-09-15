@@ -6,6 +6,9 @@ const port = process.env.PORT || 3000
 
 const videos = [{id: 1, title: 'video1'}, {id: 2, title: 'video2'}]
 
+const parserMiddle = bodyParser();
+app.use(parserMiddle)
+
 app.get('/hometask_01/api/videos', (req: Request, res: Response) => {
     if (req.query.title) {
         let searchString = req.query.title.toString();
@@ -35,13 +38,13 @@ app.delete('/hometask_01/api/videos/:id', (req: Request, res: Response) => {
 app.put('/hometask_01/api/videos/:id', (req: Request, res: Response) => {
     let video = videos.find(p => p.id === +req.params.id)
     if (video) {
-        video.title= req.body.title
+        video.title = req.body.title
         res.send(video)
     } else {
         res.send(404)
     }
 })
-app.post('/products', (req: Request, res: Response) => {
+app.post('/hometask_01/api/videos', (req: Request, res: Response) => {
     const newVideo = {
         id: +(new Date()),
         title: req.body.title
