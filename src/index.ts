@@ -67,8 +67,19 @@ app.post('/videos', (req: Request, res: Response) => {
         availableResolutions: [req.body.availableResolutions],
 
     }
-    videos.push(newVideo);
-    res.status(201).send(newVideo)
+    if (typeof req.body.title === 'string') {
+        videos.push(newVideo);
+        res.status(201).send(newVideo)
+    } else {
+        res.status(400).send({
+            "erroorsMessages": [{
+                "message": "string",
+                "field": "title"
+            }
+            ],
+            "resultCode": 1
+        })
+    }
 })
 
 app.delete('/testing/all-data', (req: Request, res: Response) => {
