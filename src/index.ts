@@ -4,7 +4,18 @@ import bodyParser from "body-parser";
 const app = express()
 const port = process.env.PORT || 3000
 
-const videos = [{id: 1, title: 'video1'}, {id: 2, title: 'video2'}]
+const videos = [{
+    id: 0,
+    title: "string",
+    author: "string",
+    canBeDownloaded: true,
+    minAgeRestriction: null,
+    createdAt: "2022-09-15T22:04:29.419Z",
+    publicationDate: "2022-09-15T22:04:29.419Z",
+    availableResolutions: [
+        "P144"
+    ]
+},]
 
 const parserMiddle = bodyParser();
 app.use(parserMiddle)
@@ -47,7 +58,14 @@ app.put('/videos/:id', (req: Request, res: Response) => {
 app.post('/videos', (req: Request, res: Response) => {
     const newVideo = {
         id: +(new Date()),
-        title: req.body.title
+        title: req.body.title,
+        author: req.body.author,
+        canBeDownloaded: req.body.canBeDownloaded,
+        minAgeRestriction: req.body.minAgeRestriction,
+        createdAt: req.body.createdAt,
+        publicationDate: req.body.publicationDate,
+        availableResolutions: [req.body.availableResolutions],
+
     }
     videos.push(newVideo);
     res.status(201).send(newVideo)
