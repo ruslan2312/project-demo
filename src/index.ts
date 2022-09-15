@@ -14,7 +14,7 @@ app.get('/videos', (req: Request, res: Response) => {
         let searchString = req.query.title.toString();
         res.status(200).send(videos.filter(p => p.title.indexOf(searchString) > -1))
     } else {
-        res.send(videos)
+        res.status(200).send(videos)
     }
 })
 app.get('/videos/:id', (req: Request, res: Response) => {
@@ -53,6 +53,12 @@ app.post('/videos', (req: Request, res: Response) => {
     res.status(201).send(newVideo)
 })
 
+app.delete('/testing/all-data', (req: Request, res: Response) => {
+    for (let i = 0; i < videos.length; i++) {
+        videos.splice(i, 1);
+    }
+    res.send(204)
+})
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
