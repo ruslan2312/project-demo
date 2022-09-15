@@ -68,14 +68,15 @@ app.post('/videos', (req: Request, res: Response) => {
 
     }
     if (typeof req.body.title === "string" && req.body.title.length <= 40) {
-        videos.push(newVideo);
         res.status(201).send(newVideo)
+        videos.push(newVideo);
     } else {
         res.status(400).send({
-            "errorsMessages": [{
-                "message": "string",
-                "field": "title"
-            }
+            "errorsMessages": [
+                {
+                    "message": "string",
+                    "field": "title"
+                }
             ],
             "resultCode": 1
         })
