@@ -1,4 +1,5 @@
 import {Request, Response, Router} from "express";
+import {VideoRepository} from "../Repository/VideosRepository";
 
 const videos = [{
     id: 0,
@@ -14,15 +15,11 @@ const videos = [{
 
 export const VideosRouter = Router();
 VideosRouter.get('/videos', (req: Request, res: Response) => {
-    if (req.query.title) {
-        let searchString = req.query.title.toString();
-        res.status(200).send(videos.filter(p => p.title.indexOf(searchString) > -1))
-    } else {
-        res.status(200).send(videos)
-    }
+    const findVideo = VideoRepository.findVideo(req.query.title?.toString())
+    res.status(200).send(findVideo)
 })
 VideosRouter.get('/videos/:id', (req: Request, res: Response) => {
-    let video = videos.find(p => p.id === +req.params.id)
+    let video = VideoRepository.findVideoByID(+req.params.id)
     if (video) {
         res.status(200).send(video)
     } else {
@@ -30,51 +27,26 @@ VideosRouter.get('/videos/:id', (req: Request, res: Response) => {
     }
 })
 VideosRouter.delete('/videos/:id', (req: Request, res: Response) => {
-    for (let i = 0; i < videos.length; i++) {
-        if (videos[i].id === +req.params.id) {
-            videos.splice(i, 1);
-            res.send(204)
-            return
-        }
+    const isDeleted = VideoRepository.deleteVideo(+req.params.id)
+    if (isDeleted) {
+        res.send(204)
+    } else {
+        res.send(404)
     }
-    res.send(404)
 })
 VideosRouter.put('/videos/:id', (req: Request, res: Response) => {
-    let video = videos.find(p => p.id === +req.params.id)
-    if (video) {
-        video.title = req.body.title
+    const isUpdate = VideoRepository.updateVideo(+req.params.id, req.body.title)
+    if (isUpdate) {
+        const video = VideoRepository.findVideoByID(+req.params.id)
         res.status(200).send(video)
     } else {
         res.send(404)
     }
 })
 VideosRouter.post('/videos', (req: Request, res: Response) => {
-    const newVideo = {
-        id: +(new Date()),
-        title: req.body.title,
-        author: req.body.author,
-        availableResolutions: [
-            req.body.availableResolutions
-        ],
-        canBeDownloaded: req.body.canBeDownloaded,
-        minAgeRestriction: req.body.minAgeRestriction,
-        publicationDate: req.body.publicationDate
-    }
-
-
-     if ( req.body.title.length <= 40) {
-       videos.push(newVideo);
-       res.status(201).send(newVideo)
-    } else {
-      return res.status(400).send({
-          errorsMessages: [
-              {
-                  message: "string",
-                  field: "title"
-               }],
-            resultCode: 1
-       })
-    }
+    const newVideo = VideoRepository.createVideo(req.body.title, req.body.author, req.body.availableResolutions, req.body.canBeDownloaded,
+        req.body.minAgeRestriction,  req.body.publicationDate)
+    res.status(201).send(newVideo)
 })
 VideosRouter.delete('/testing/all-data', (req: Request, res: Response) => {
     for (let i = 0; i < videos.length; i++) {
