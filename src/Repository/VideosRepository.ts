@@ -56,7 +56,7 @@ export const VideoRepository = {
         videos.push(newVideo)
         return newVideo
 
-        // if (title.length <= 40) {
+        // if (req.body.title === "string"&& title.length <= 40) {
         //     videos.push(newVideo);
         //     res.status(201).send(newVideo)
         // } else {
