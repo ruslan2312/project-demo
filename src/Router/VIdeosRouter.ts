@@ -67,10 +67,10 @@ VideosRouter.post('/videos', (req: Request, res: Response) => {
        res.status(201).send(newVideo)
     } else {
       return res.status(400).send({
-            errorsMessages: [
+          errorsMessages: [
               {
-                    message: "string",
-                   field: "title"
+                  message: "string",
+                  field: "title"
                }],
             resultCode: 1
        })
