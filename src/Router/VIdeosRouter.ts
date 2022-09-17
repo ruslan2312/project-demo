@@ -46,20 +46,21 @@ VideosRouter.put('/videos/:id', (req: Request, res: Response) => {
 VideosRouter.post('/videos', (req: Request, res: Response) => {
     const newVideo = VideoRepository.createVideo(req.body.title, req.body.author, req.body.availableResolutions, req.body.canBeDownloaded,
         req.body.minAgeRestriction, req.body.publicationDate)
-
-    if (req.body.title === "string" ) {
-        videos.push(newVideo);
-        res.status(201).send(newVideo)
-    } else {
-        return res.status(400).send({
-            errorsMessages: [
-                {
-                    message: "string",
-                    field: "title"
-                }],
-            resultCode: 1
-        })
-    }
+    videos.push(newVideo);
+    res.status(201).send(newVideo)
+    // if (req.body.title === "string" ) {
+    //     videos.push(newVideo);
+    //     res.status(201).send(newVideo)
+    // } else {
+    //     return res.status(400).send({
+    //         errorsMessages: [
+    //             {
+    //                 message: "string",
+    //                 field: "title"
+    //             }],
+    //         resultCode: 1
+    //     })
+    // }
 })
 VideosRouter.delete('/testing/all-data', (req: Request, res: Response) => {
     for (let i = 0; i < videos.length; i++) {
