@@ -62,7 +62,7 @@ VideosRouter.post('/videos', (req: Request, res: Response) => {
     }
 
 
-     if (req.body.title === "string" && req.body.title.length <= 40) {
+     if ( req.body.title.length <= 40) {
        videos.push(newVideo);
        res.status(201).send(newVideo)
     } else {
