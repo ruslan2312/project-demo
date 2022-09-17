@@ -4,20 +4,19 @@ const videos = [{
     id: 0,
     title: "string",
     author: "string",
-    canBeDownloaded: true,
-    minAgeRestriction: null,
-    createdAt: "2022-09-15T22:04:29.419Z",
-    publicationDate: "2022-09-15T22:04:29.419Z",
     availableResolutions: [
         "P144"
-    ]
+    ],
+    canBeDownloaded: true,
+    minAgeRestriction: 18,
+    publicationDate: "2022-09-17T20:56:33.534Z"
 },]
 
 export const VideosRouter = Router();
 VideosRouter.get('/', (req: Request, res: Response) => {
-    if (req.query.title) {
-        let searchString = req.query.title.toString();
-        res.status(200).send(videos.filter(p => p.title.indexOf(searchString) > -1))
+    if (req.query.id) {
+        let searchString = req.query.id;
+        res.status(200).send(videos.filter(p => p.id > -1))
     } else {
         res.status(200).send(videos)
     }
@@ -52,27 +51,41 @@ VideosRouter.put('/:id', (req: Request, res: Response) => {
 VideosRouter.post('/', (req: Request, res: Response) => {
     const newVideo = {
         id: +(new Date()),
-        title: req.body.title.toString(),
+        title: req.body.title,
         author: req.body.author,
+        availableResolutions: [
+            req.body.availableResolutions
+        ],
         canBeDownloaded: req.body.canBeDownloaded,
         minAgeRestriction: req.body.minAgeRestriction,
-        createdAt: req.body.createdAt,
-        publicationDate: req.body.publicationDate,
-        availableResolutions: [req.body.availableResolutions],
+        publicationDate: req.body.publicationDate
+    }
+    videos.push(newVideo);
+    res.status(201).send(newVideo)
 
-    }
-    if (typeof req.body.title === "string" && req.body.title.length <= 40) {
-        videos.push(newVideo);
-        res.status(201).send(newVideo)
-    } else {
-        return res.status(400).send({
-            "errorsMessages": [
-                {
-                    "message": "string",
-                    "field": "title"
-                }
-            ],
-            resultCode: 1
-        })
-    }
+    // const newVideo = {
+    //     id: +(new Date()),
+    //     title: req.body.title,
+    //     author: req.body.author,
+    //     canBeDownloaded: req.body.canBeDownloaded,
+    //     minAgeRestriction: req.body.minAgeRestriction,
+    //     createdAt: req.body.createdAt,
+    //     publicationDate: req.body.publicationDate,
+    //     availableResolutions: [req.body.availableResolutions],
+    //
+    // }
+    // if (req.body.title.length <= 40) {
+    //     videos.push(newVideo);
+    //     res.status(201).send(newVideo)
+    // } else {
+    //     return res.status(400).send({
+    //         errorsMessages: [
+    //             {
+    //                 message: "string",
+    //                 field: "title"
+    //             }
+    //         ],
+    //         resultCode: 1
+    //     })
+    // }
 })
