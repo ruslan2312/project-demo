@@ -52,7 +52,7 @@ VideosRouter.put('/:id', (req: Request, res: Response) => {
 VideosRouter.post('/', (req: Request, res: Response) => {
     const newVideo = {
         id: +(new Date()),
-        title: req.body.title,
+        title: req.body.title.toString(),
         author: req.body.author,
         canBeDownloaded: req.body.canBeDownloaded,
         minAgeRestriction: req.body.minAgeRestriction,
@@ -62,17 +62,17 @@ VideosRouter.post('/', (req: Request, res: Response) => {
 
     }
     if (typeof req.body.title === "string" && req.body.title.length <= 40) {
-        res.status(201).send(newVideo)
         videos.push(newVideo);
+        res.status(201).send(newVideo)
     } else {
-        res.status(400).send({
+        return res.status(400).send({
             "errorsMessages": [
                 {
                     "message": "string",
                     "field": "title"
                 }
             ],
-            "resultCode": 1
+            resultCode: 1
         })
     }
 })
