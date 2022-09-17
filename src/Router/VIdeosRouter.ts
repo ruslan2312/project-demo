@@ -14,9 +14,9 @@ const videos = [{
 
 export const VideosRouter = Router();
 VideosRouter.get('/', (req: Request, res: Response) => {
-    if (req.query.id) {
-        let searchString = req.query.id;
-        res.status(200).send(videos.filter(p => p.id > -1))
+    if (req.query.title) {
+        let searchString = req.query.title.toString();
+        res.status(200).send(videos.filter(p => p.title.indexOf(searchString) > -1))
     } else {
         res.status(200).send(videos)
     }
