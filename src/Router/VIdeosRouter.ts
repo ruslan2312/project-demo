@@ -13,7 +13,7 @@ const videos = [{
 },]
 
 export const VideosRouter = Router();
-VideosRouter.get('/', (req: Request, res: Response) => {
+VideosRouter.get('/videos', (req: Request, res: Response) => {
     if (req.query.title) {
         let searchString = req.query.title.toString();
         res.status(200).send(videos.filter(p => p.title.indexOf(searchString) > -1))
@@ -21,7 +21,7 @@ VideosRouter.get('/', (req: Request, res: Response) => {
         res.status(200).send(videos)
     }
 })
-VideosRouter.get('/:id', (req: Request, res: Response) => {
+VideosRouter.get('/videos/:id', (req: Request, res: Response) => {
     let video = videos.find(p => p.id === +req.params.id)
     if (video) {
         res.status(200).send(video)
@@ -29,7 +29,7 @@ VideosRouter.get('/:id', (req: Request, res: Response) => {
         res.send(404)
     }
 })
-VideosRouter.delete('/:id', (req: Request, res: Response) => {
+VideosRouter.delete('/videos/:id', (req: Request, res: Response) => {
     for (let i = 0; i < videos.length; i++) {
         if (videos[i].id === +req.params.id) {
             videos.splice(i, 1);
@@ -39,7 +39,7 @@ VideosRouter.delete('/:id', (req: Request, res: Response) => {
     }
     res.send(404)
 })
-VideosRouter.put('/:id', (req: Request, res: Response) => {
+VideosRouter.put('/videos/:id', (req: Request, res: Response) => {
     let video = videos.find(p => p.id === +req.params.id)
     if (video) {
         video.title = req.body.title
@@ -48,7 +48,7 @@ VideosRouter.put('/:id', (req: Request, res: Response) => {
         res.send(404)
     }
 })
-VideosRouter.post('/', (req: Request, res: Response) => {
+VideosRouter.post('/videos', (req: Request, res: Response) => {
     const newVideo = {
         id: +(new Date()),
         title: req.body.title,
@@ -88,4 +88,10 @@ VideosRouter.post('/', (req: Request, res: Response) => {
     //         resultCode: 1
     //     })
     // }
+})
+VideosRouter.delete('/testing/all-data', (req: Request, res: Response) => {
+    for (let i = 0; i < videos.length; i++) {
+        videos.splice(i, 1);
+    }
+    res.send(204)
 })
