@@ -60,34 +60,21 @@ VideosRouter.post('/videos', (req: Request, res: Response) => {
         minAgeRestriction: req.body.minAgeRestriction,
         publicationDate: req.body.publicationDate
     }
-    videos.push(newVideo);
-    res.status(201).send(newVideo)
 
-    // const newVideo = {
-    //     id: +(new Date()),
-    //     title: req.body.title,
-    //     author: req.body.author,
-    //     canBeDownloaded: req.body.canBeDownloaded,
-    //     minAgeRestriction: req.body.minAgeRestriction,
-    //     createdAt: req.body.createdAt,
-    //     publicationDate: req.body.publicationDate,
-    //     availableResolutions: [req.body.availableResolutions],
-    //
-    // }
-    // if (req.body.title.length <= 40) {
-    //     videos.push(newVideo);
-    //     res.status(201).send(newVideo)
-    // } else {
-    //     return res.status(400).send({
-    //         errorsMessages: [
-    //             {
-    //                 message: "string",
-    //                 field: "title"
-    //             }
-    //         ],
-    //         resultCode: 1
-    //     })
-    // }
+
+     if (req.body.title === "string" && req.body.title.length <= 40) {
+       videos.push(newVideo);
+       res.status(201).send(newVideo)
+    } else {
+      return res.status(400).send({
+            errorsMessages: [
+              {
+                    message: "string",
+                   field: "title"
+               }],
+            resultCode: 1
+       })
+    }
 })
 VideosRouter.delete('/testing/all-data', (req: Request, res: Response) => {
     for (let i = 0; i < videos.length; i++) {
