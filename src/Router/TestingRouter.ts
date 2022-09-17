@@ -1,6 +1,6 @@
 import {Request, Response, Router} from "express";
 
-export const TestinRouter = Router();
+export const TestingRouter = Router();
 const videos = [{
     id: 0,
     title: "string",
@@ -13,7 +13,7 @@ const videos = [{
         "P144"
     ]
 },]
-TestinRouter.delete('/testing/all-data', (req: Request, res: Response) => {
+TestingRouter.delete('/all-data', (req: Request, res: Response) => {
     for (let i = 0; i < videos.length; i++) {
         videos.splice(i, 1);
     }

@@ -1,7 +1,7 @@
 import express from 'express'
 import bodyParser from "body-parser";
 import {VideosRouter} from "./Router/VIdeosRouter";
-import {TestinRouter} from "./Router/TestingRouter";
+import {TestingRouter} from "./Router/TestingRouter";
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -11,7 +11,7 @@ app.use(parserMiddle)
 
 
 app.use('/videos', VideosRouter)
-app.use('/testing', TestinRouter)
+app.use('/testing', TestingRouter)
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
