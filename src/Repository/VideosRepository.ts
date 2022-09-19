@@ -13,15 +13,13 @@ const videos = [{
 export const VideoRepository = {
     findVideo(title: string | null | undefined) {
         if (title) {
-            let filterVideo = videos.filter(p => p.title.indexOf(title) > -1)
-            return filterVideo;
+            return videos.filter(p => p.title.indexOf(title) > -1)
         } else {
             return videos
         }
     },
     findVideoByID(id: number) {
-        let video = videos.find(p => p.id === +id)
-        return video
+        return videos.find(p => p.id === +id)
     },
     deleteVideo(id: number) {
         for (let i = 0; i < videos.length; i++) {
