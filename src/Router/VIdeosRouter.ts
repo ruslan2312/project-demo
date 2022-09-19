@@ -48,7 +48,7 @@ VideosRouter.delete('/videos/:id', (req: Request, res: Response) => {
     }
 })
 VideosRouter.put('/videos/:id',
-    titleValidation, authorValidation, availableResolutionsVideoValidation, canBeDownloadedValidation, minAgeRestrictionValidation,
+    titleValidation, authorValidation, canBeDownloadedValidation, minAgeRestrictionValidation,
     publicationDateValidation, inputValidationMiddleware,
     (req: Request, res: Response) => {
         const isUpdate = VideoRepository.updateVideo(+req.params.id, req.body.title)
@@ -60,7 +60,7 @@ VideosRouter.put('/videos/:id',
         }
     })
 VideosRouter.post('/videos',
-    titleValidation, authorValidation, availableResolutionsVideoValidation, canBeDownloadedValidation, minAgeRestrictionValidation,
+    titleValidation, authorValidation, canBeDownloadedValidation, minAgeRestrictionValidation,
     publicationDateValidation, inputValidationMiddleware,
     (req: Request, res: Response) => {
         const newVideo = VideoRepository.createVideo(req.body.title, req.body.author, req.body.availableResolutions, req.body.canBeDownloaded,
