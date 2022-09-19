@@ -1,5 +1,6 @@
 import {Request, Response, Router} from "express";
 import {VideoRepository} from "../Repository/VideosRepository";
+import {body, validationResult} from 'express-validator';
 
 const videos = [{
     id: 0,
@@ -48,19 +49,7 @@ VideosRouter.post('/videos', (req: Request, res: Response) => {
         req.body.minAgeRestriction, req.body.publicationDate)
     videos.push(newVideo);
     res.status(201).send(newVideo)
-    // if (req.body.title === "string" ) {
-    //     videos.push(newVideo);
-    //     res.status(201).send(newVideo)
-    // } else {
-    //     return res.status(400).send({
-    //         errorsMessages: [
-    //             {
-    //                 message: "string",
-    //                 field: "title"
-    //             }],
-    //         resultCode: 1
-    //     })
-    // }
+
 })
 VideosRouter.delete('/testing/all-data', (req: Request, res: Response) => {
     for (let i = 0; i < videos.length; i++) {
