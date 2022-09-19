@@ -25,14 +25,12 @@ const publicationDateValidation = body('publicationDate').trim().isLength({min: 
 
 export const VideosRouter = Router();
 
-VideosRouter.get('/videos', titleValidation, authorValidation, availableResolutionsVideoValidation, canBeDownloadedValidation, minAgeRestrictionValidation,
-    publicationDateValidation, inputValidationMiddleware,
+VideosRouter.get('/videos',
     (req: Request, res: Response) => {
         const findVideo = VideoRepository.findVideo(req.query.title?.toString())
         res.status(200).send(findVideo)
     })
-VideosRouter.get('/videos/:id', titleValidation, authorValidation, availableResolutionsVideoValidation, canBeDownloadedValidation, minAgeRestrictionValidation,
-    publicationDateValidation, inputValidationMiddleware,
+VideosRouter.get('/videos/:id',
     (req: Request, res: Response) => {
         let video = VideoRepository.findVideoByID(+req.params.id)
         if (video) {
