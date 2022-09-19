@@ -1,10 +1,10 @@
 import {Request, Response, Router} from "express";
 import {VideoRepository} from "../Repository/VideosRepository";
-import {body, validationResult} from 'express-validator';
+import {body} from 'express-validator';
 import {inputValidationMiddleware} from "../Middleware/input-validation-middleware";
 
 const videos = [{
-    id: 0,
+    id: 165555,
     title: "string",
     author: "string",
     availableResolutions: [
