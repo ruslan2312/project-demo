@@ -1,21 +1,17 @@
 import {Request, Response, NextFunction} from "express";
-import {validationResult, ValidationError} from "express-validator";
+import {validationResult} from "express-validator";
 
 
 export const inputValidationMiddleware = (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
-        const err = errors.array().map(e => {
+        const err = errors.array({ onlyFirstError: true }).map(e => {
             return {
                 message: e.msg,
                 field: e.param
             }
         })
-        res.status(400).json({errorsMessages: err})
-    } else {
-        next()
+        return res.status(400).json({errorsMessages: err})
     }
+    next()
 }
-
-
-// {onlyFirstError: true} read this option
