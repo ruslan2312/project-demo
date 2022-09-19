@@ -19,9 +19,8 @@ const titleValidation = body('title').trim().isLength({min: 4, max: 20})
 const authorValidation = body('author').trim().isLength({min: 4, max: 20})
 const availableResolutionsVideoValidation = body('availableResolutions').isArray({min: 1, max: 5});
 const canBeDownloadedValidation = body('canBeDownloaded').isBoolean()
-// const minAgeRestrictionValidation = body('minAgeRestriction').isInt({min: 0, max: 100})
-// const publicationDateValidation = body('publicationDate').trim().isLength({min: 8, max: 100})
-
+const minAgeRestrictionValidation = body('minAgeRestriction').isInt({min: 0, max: 100})
+const publicationDateValidation = body('publicationDate').trim().notEmpty()
 
 export const VideosRouter = Router();
 
@@ -48,7 +47,7 @@ VideosRouter.delete('/videos/:id', (req: Request, res: Response) => {
     }
 })
 VideosRouter.put('/videos/:id',
-    titleValidation, authorValidation, canBeDownloadedValidation, inputValidationMiddleware,
+    titleValidation, authorValidation, canBeDownloadedValidation,minAgeRestrictionValidation,publicationDateValidation, inputValidationMiddleware,
     (req: Request, res: Response) => {
         const isUpdate = VideoRepository.updateVideo(+req.params.id, req.body.title)
         if (isUpdate) {
@@ -59,7 +58,7 @@ VideosRouter.put('/videos/:id',
         }
     })
 VideosRouter.post('/videos',
-    titleValidation, authorValidation, canBeDownloadedValidation, inputValidationMiddleware,
+    titleValidation, authorValidation, canBeDownloadedValidation,minAgeRestrictionValidation,publicationDateValidation, inputValidationMiddleware,
     (req: Request, res: Response) => {
         const newVideo = VideoRepository.createVideo(req.body.title, req.body.author, req.body.availableResolutions, req.body.canBeDownloaded,
             req.body.minAgeRestriction, req.body.publicationDate)
