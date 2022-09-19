@@ -3,7 +3,6 @@ import {VideoRepository} from "../Repository/VideosRepository";
 import {body} from 'express-validator';
 import {inputValidationMiddleware} from "../Middleware/input-validation-middleware";
 
-
 const titleValidation = body('title').trim().isLength({min: 4, max: 20})
 const authorValidation = body('author').trim().isLength({min: 4, max: 20})
 const availableResolutionsVideoValidation = body('availableResolutions').isArray({min: 1, max: 5});
