@@ -53,7 +53,7 @@ VideosRouter.put('/videos/:id',
         const isUpdate = VideoRepository.updateVideo(+req.params.id, req.body.title)
         if (isUpdate) {
             const video = VideoRepository.findVideoByID(+req.params.id)
-            res.status(200).send(video)
+            res.status(201).send(video)
         } else {
             res.send(404)
         }
