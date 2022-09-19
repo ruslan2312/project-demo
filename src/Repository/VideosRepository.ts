@@ -1,5 +1,5 @@
 const videos = [{
-    id: 0,
+    id: 165555,
     title: "string",
     author: "string",
     availableResolutions: [
@@ -29,6 +29,11 @@ export const VideoRepository = {
             }
         }
         return false
+    }, deleteAllVideo() {
+        for (let i = 0; i < videos.length; i++) {
+            videos.splice(i, 1);
+        }
+        return true
     },
     updateVideo(id: number, title: string) {
         let video = videos.find(p => p.id === +id)

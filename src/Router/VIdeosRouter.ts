@@ -3,17 +3,6 @@ import {VideoRepository} from "../Repository/VideosRepository";
 import {body} from 'express-validator';
 import {inputValidationMiddleware} from "../Middleware/input-validation-middleware";
 
-const videos = [{
-    id: 165555,
-    title: "string",
-    author: "string",
-    availableResolutions: [
-        "P144"
-    ],
-    canBeDownloaded: true,
-    minAgeRestriction: 18,
-    publicationDate: "2022-09-17T20:56:33.534Z"
-},]
 
 const titleValidation = body('title').trim().isLength({min: 4, max: 20})
 const authorValidation = body('author').trim().isLength({min: 4, max: 20})
@@ -62,13 +51,10 @@ VideosRouter.post('/videos',
     (req: Request, res: Response) => {
         const newVideo = VideoRepository.createVideo(req.body.title, req.body.author, req.body.availableResolutions, req.body.canBeDownloaded,
             req.body.minAgeRestriction, req.body.publicationDate)
-        videos.push(newVideo);
         res.status(201).send(newVideo)
 
     })
 VideosRouter.delete('/testing/all-data', (req: Request, res: Response) => {
-    for (let i = 0; i < videos.length; i++) {
-        videos.splice(i, 1);
-    }
+    VideoRepository.deleteAllVideo();
     res.send(204)
 })
