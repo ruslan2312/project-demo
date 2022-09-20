@@ -35,10 +35,14 @@ export const VideoRepository = {
         }
         return true
     },
-    updateVideo(id: number, title: string) {
+    updateVideo(id: number, title: string, canBeDownloaded: boolean, minAgeRestriction: number, publicationDate: string , availableResolutions:any) {
         let video = videos.find(p => p.id === +id)
         if (video) {
             video.title = title
+            video.canBeDownloaded = canBeDownloaded
+            video.minAgeRestriction = minAgeRestriction
+            video.publicationDate = publicationDate
+            video.availableResolutions = availableResolutions
             return true
         } else {
             return false

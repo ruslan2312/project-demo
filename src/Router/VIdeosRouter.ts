@@ -16,7 +16,7 @@ const availableResolutionsVideoValidation = body('availableResolutions').isArray
         if (!isIn) return false
     }
     return true
-});
+}).optional();
 const canBeDownloadedValidation = body('canBeDownloaded').isBoolean().optional()
 const minAgeRestrictionValidation = body('minAgeRestriction').isInt({min: 1, max: 18}).optional()
 const publicationDateValidation = body('publicationDate').trim().notEmpty().optional()
@@ -50,7 +50,8 @@ VideosRouter.put('/videos/:id',
     titleValidation, authorValidation, availableResolutionsVideoValidation, canBeDownloadedValidation,
     minAgeRestrictionValidation, publicationDateValidation, inputValidationMiddleware,
     (req: Request, res: Response) => {
-        const isUpdate = VideoRepository.updateVideo(+req.params.id, req.body.title)
+        const isUpdate = VideoRepository.updateVideo(+req.params.id, req.body.title, req.body.canBeDownloaded, req.body.minAgeRestriction,
+            req.body.publicationDate ,  req.body.availableResolutions)
         if (isUpdate) {
             const video = VideoRepository.findVideoByID(+req.params.id)
             res.status(200).send(video)
