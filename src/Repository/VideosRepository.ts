@@ -48,7 +48,7 @@ export const VideoRepository = {
             return false
         }
     },
-    createVideo(title: string, author: string, availableResolutions: string, canBeDownloaded: boolean, minAgeRestriction: number, publicationDate: string) {
+    createVideo(title: string, author: string, availableResolutions: any, canBeDownloaded: boolean, minAgeRestriction: number, publicationDate: string) {
         const newVideo = {
             id: +(new Date()),
             title: title,
