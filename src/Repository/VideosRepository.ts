@@ -58,7 +58,8 @@ export const VideoRepository = {
             ],
             canBeDownloaded: canBeDownloaded,
             minAgeRestriction: minAgeRestriction,
-            publicationDate: publicationDate
+            publicationDate: publicationDate,
+            createdAt: new Date().toString()
         }
         videos.push(newVideo)
         return newVideo
