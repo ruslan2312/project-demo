@@ -8,7 +8,7 @@ const stdResoluthion = ['P144', 'P240', 'P360', 'P480', 'P720', 'P1080', 'P1440'
 
 
 const titleValidation = body('title').trim().isLength({min: 4, max: 20})
-const authorValidation = body('author').trim().isLength({min: 4, max: 21})
+const authorValidation = body('author').trim().isLength({min: 4, max: 20})
 const availableResolutionsVideoValidation = body('availableResolutions').isArray({max: 8}).custom((array) => {
     for (let i = 0; i < array.length; i++) {
         const value = array[i];
