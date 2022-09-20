@@ -19,8 +19,7 @@ const availableResolutionsVideoValidation = body('availableResolutions').isArray
 }).optional();
 const canBeDownloadedValidation = body('canBeDownloaded').isBoolean().optional()
 const minAgeRestrictionValidation = body('minAgeRestriction').isInt({min: 1, max: 18}).optional()
-const publicationDateValidation = body('publicationDate').trim().notEmpty().optional()
-
+const publicationDateValidation = body('publicationDate').isString().notEmpty()
 
 export const VideosRouter = Router();
 
