@@ -4,7 +4,7 @@ import {body} from 'express-validator';
 import {inputValidationMiddleware} from "../Middleware/input-validation-middleware";
 
 
-const stdResoluthion = ['P144', 'P240', 'P360', 'P480', 'P720', 'P1080', 'P1440', 'P2160']
+export const stdResoluthion = ['P144', 'P240', 'P360', 'P480', 'P720', 'P1080', 'P1440', 'P2160']
 
 
 const titleValidation = body('title').trim().isLength({min: 4, max: 20})
@@ -51,7 +51,7 @@ VideosRouter.put('/videos/:id',
     minAgeRestrictionValidation, publicationDateValidation, inputValidationMiddleware,
     (req: Request, res: Response) => {
         const isUpdate = VideoRepository.updateVideo(+req.params.id, req.body.title, req.body.canBeDownloaded, req.body.minAgeRestriction,
-            req.body.publicationDate ,  req.body.availableResolutions)
+            req.body.publicationDate, req.body.availableResolutions)
         if (isUpdate) {
             const video = VideoRepository.findVideoByID(+req.params.id)
             res.status(204).send(video)
@@ -63,8 +63,7 @@ VideosRouter.post('/videos',
     titleValidation, authorValidation, availableResolutionsVideoValidation, canBeDownloadedValidation,
     minAgeRestrictionValidation, publicationDateValidation, inputValidationMiddleware,
     (req: Request, res: Response) => {
-        const newVideo = VideoRepository.createVideo(req.body.title, req.body.author, req.body.availableResolutions, req.body.canBeDownloaded,
-            req.body.minAgeRestriction, req.body.publicationDate)
+        const newVideo = VideoRepository.createVideo(req.body.title, req.body.author, req.body.availableResolutions)
         res.status(201).send(newVideo)
 
     })

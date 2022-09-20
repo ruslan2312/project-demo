@@ -1,14 +1,16 @@
-const videos = [{
-    id: 165555,
-    title: "string",
-    author: "string",
-    availableResolutions: [
-        "P144"
-    ],
-    canBeDownloaded: true,
-    minAgeRestriction: 18,
-    publicationDate: "2022-09-17T20:56:33.534Z"
-},]
+
+export type VideoType = {
+    id: number,
+    title: string,
+    author: string,
+    availableResolutions: any[],
+    canBeDownloaded: boolean,
+    minAgeRestriction: number | null,
+    publicationDate: string,
+    createdAt: string,
+}
+
+const videos: VideoType[] = []
 
 export const VideoRepository = {
     findVideo(title: string | null | undefined) {
@@ -48,17 +50,17 @@ export const VideoRepository = {
             return false
         }
     },
-    createVideo(title: string, author: string, availableResolutions: any, canBeDownloaded: boolean, minAgeRestriction: number, publicationDate: string) {
-        const newVideo = {
+    createVideo(title: string, author: string, availableResolutions: any,) {
+        const newVideo: VideoType = {
             id: +(new Date()),
             title: title,
             author: author,
             availableResolutions: [
                 availableResolutions
             ],
-            canBeDownloaded: canBeDownloaded,
-            minAgeRestriction: minAgeRestriction,
-            publicationDate: publicationDate,
+            canBeDownloaded: false,
+            minAgeRestriction: null,
+            publicationDate: new Date().toISOString(),
             createdAt: new Date().toISOString()
         }
         videos.push(newVideo)
