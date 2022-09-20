@@ -1,4 +1,3 @@
-
 export type VideoType = {
     id: number,
     title: string,
@@ -37,7 +36,7 @@ export const VideoRepository = {
         }
         return true
     },
-    updateVideo(id: number, title: string, canBeDownloaded: boolean, minAgeRestriction: number, publicationDate: string , availableResolutions:any) {
+    updateVideo(id: number, title: string, canBeDownloaded: boolean, minAgeRestriction: number, publicationDate: string, availableResolutions: any) {
         let video = videos.find(p => p.id === +id)
         if (video) {
             video.title = title
@@ -60,7 +59,7 @@ export const VideoRepository = {
             ],
             canBeDownloaded: false,
             minAgeRestriction: null,
-            publicationDate: new Date().toISOString(),
+            publicationDate: new Date((Date.now() + (3600 * 1000 * 24))).toISOString(),
             createdAt: new Date().toISOString()
         }
         videos.push(newVideo)
