@@ -4,19 +4,19 @@ import {body} from 'express-validator';
 import {inputValidationMiddleware} from "../Middleware/input-validation-middleware";
 
 
-export const stdResoluthion = ['P144', 'P240', 'P360', 'P480', 'P720', 'P1080', 'P1440', 'P2160']
+export const stdResolution = ['P144', 'P240', 'P360', 'P480', 'P720', 'P1080', 'P1440', 'P2160']
 
 
 const titleValidation = body('title').trim().isLength({min: 4, max: 20})
-const authorValidation = body('author').trim().isLength({min: 4, max: 20})
+const authorValidation = body('author').trim().isLength({min: 4, max: 20}).exists()
 const availableResolutionsVideoValidation = body('availableResolutions').isArray({max: 8}).custom((array) => {
     for (let i = 0; i < array.length; i++) {
         const value = array[i];
-        const isIn = stdResoluthion.includes(value)
+        const isIn = stdResolution.includes(value)
         if (!isIn) return false
     }
     return true
-}).optional();
+}).optional().exists();
 const canBeDownloadedValidation = body('canBeDownloaded').isBoolean().optional()
 const minAgeRestrictionValidation = body('minAgeRestriction').isInt({min: 1, max: 18}).optional()
 const publicationDateValidation = body('publicationDate').isString().notEmpty().optional()
