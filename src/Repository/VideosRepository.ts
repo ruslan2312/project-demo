@@ -3,8 +3,8 @@ export type VideoType = {
     title: string,
     author: string,
     availableResolutions: any[],
-    canBeDownloaded: boolean,
-    minAgeRestriction: number | null,
+    canBeDownloaded: boolean | null| undefined,
+    minAgeRestriction: number | null ,
     publicationDate: string,
     createdAt: string,
 }
@@ -50,7 +50,7 @@ export const VideoRepository = {
             return false
         }
     },
-    createVideo(title: string, author: string, availableResolutions: any,) {
+    createVideo(title: string, author: string, availableResolutions: any) {
         const newVideo: VideoType = {
             id: +(new Date()),
             title: title,
