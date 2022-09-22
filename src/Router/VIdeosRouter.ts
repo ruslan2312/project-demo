@@ -8,7 +8,7 @@ export const stdResolution = ['P144', 'P240', 'P360', 'P480', 'P720', 'P1080', '
 
 
 const titleValidation = body('title').trim().isLength({min: 4, max: 20})
-const authorValidation = body('author').trim().isLength({min: 4, max: 20}).exists()
+const authorValidation = body('author').trim().isLength({min: 4, max: 20}).exists().optional()
 const availableResolutionsVideoValidation = body('availableResolutions').isArray({max: 8}).custom((array) => {
     for (let i = 0; i < array.length; i++) {
         const value = array[i];
